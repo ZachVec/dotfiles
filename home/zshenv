@@ -1,0 +1,22 @@
+# shellcheck disable=SC1090,SC1091
+
+# XDG base directories — must be set before sourcing sh/profile/
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+# Debian's /etc/zsh/zshrc calls compinit, which drops its dump file into
+# $ZDOTDIR or $HOME.  We take compinit over in .zshrc so the dump lands in the
+# cache directory instead; this is what tells the system file to stand down.
+skip_global_compinit=1
+
+# Source shared profile configs (exports, env vars)
+for file in "$XDG_CONFIG_HOME/sh/profile/"*.sh(N); do
+  [ -f "$file" ] && source "$file"
+done
+
+# Machine-local profile overrides, sourced last so they win.  Not in the repo.
+for file in "$XDG_CONFIG_HOME/local/profile/"*.sh(N); do
+  [ -f "$file" ] && source "$file"
+done

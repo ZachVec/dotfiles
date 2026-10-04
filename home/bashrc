@@ -1,0 +1,30 @@
+# shellcheck disable=SC1090,SC1091
+shopt -s nullglob
+
+# bash also reads this file for non-interactive shells whose standard input is
+# a network socket — `ssh host cmd` being the common case.  There is nothing to
+# configure there, and anything written would land inside that command's
+# output, so leave quietly.
+case $- in
+  *i*) ;;
+  *) return 0 ;;
+esac
+
+# The profile layer normally sets the XDG paths; fall back so an interactive
+# shell started with a bare environment still writes history somewhere sane.
+export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/bash/history"
+
+# Source shared interactive configs (aliases, functions, init)
+for file in "$XDG_CONFIG_HOME/sh/rc/"*.sh; do
+  [ -f "$file" ] && source "$file"
+done
+
+# Source bash-specific configs
+for file in "$XDG_CONFIG_HOME/bash/"*.bash; do
+  [ -f "$file" ] && source "$file"
+done
+
+# Machine-local rc, sourced last so it wins.  Not in the repo.
+for file in "$XDG_CONFIG_HOME/local/rc/"*.sh; do
+  [ -f "$file" ] && source "$file"
+done

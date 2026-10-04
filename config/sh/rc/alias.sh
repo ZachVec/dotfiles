@@ -1,0 +1,10 @@
+# Common aliases for both bash and zsh
+alias vi="nvim"
+alias ll="ls -lah"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ta="tmux attach -t"
+alias tl="tmux list-sessions"
+alias tn="tmux new-session -s"

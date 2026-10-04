@@ -1,0 +1,27 @@
+# shellcheck disable=SC1090,SC1091
+
+HISTFILE="$XDG_CACHE_HOME/zsh/zsh_history"
+HISTSIZE=1000
+SAVEHIST=1000
+
+# Source shared interactive configs (aliases, functions, init)
+for file in "$XDG_CONFIG_HOME/sh/rc/"*.sh(N); do
+  [ -f "$file" ] && source "$file"
+done
+
+# Source zsh-specific configs
+for file in "$XDG_CONFIG_HOME/zsh/"*.zsh(N); do
+  [ -f "$file" ] && source "$file"
+done
+
+# Machine-local rc, sourced last so it wins.  Not in the repo.
+for file in "$XDG_CONFIG_HOME/local/rc/"*.sh(N); do
+  [ -f "$file" ] && source "$file"
+done
+
+# Own compinit so the dump file goes to the cache directory rather than $HOME
+# (see the skip_global_compinit note in home/zshenv).  Runs last so anything
+# that extends $fpath above is already in place.
+mkdir -p "$XDG_CACHE_HOME/zsh"
+autoload -Uz compinit
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"

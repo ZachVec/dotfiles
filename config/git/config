@@ -1,0 +1,12 @@
+[user]
+    email = zijiebing@gmail.com
+    name = Zach
+[init]
+    defaultBranch = master
+[core]
+    excludesfile = ~/.config/git/ignore
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process

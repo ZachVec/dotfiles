@@ -1,0 +1,15 @@
+# install.sh renames conflicting files to <name>.bak.<timestamp>
+*.bak.*
+
+# Safety net: TPM plugins belong in $XDG_DATA_HOME/tmux/plugins/ (see
+# config/tmux/tmux.conf). If TPM ever falls back to its XDG default they
+# would land here, and they are all nested git repositories.
+config/tmux/plugins/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Safety net: zsh's completion dump used to live inside the config tree when
+# ZDOTDIR pointed at it.  It now goes to $XDG_CACHE_HOME, but never commit it.
+.zcompdump*
