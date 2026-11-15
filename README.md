@@ -6,7 +6,7 @@ and projected into `$HOME` with symlinks.
 ## Install
 
 ```bash
-git clone git@github.com:ZachVec/dotfiles.git \
+git clone https://github.com/ZachVec/dotfiles.git \
   "${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles"
 "${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles/install.sh"
 ```
