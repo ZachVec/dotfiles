@@ -35,14 +35,12 @@ if wezterm.target_triple:find("apple%-darwin") ~= nil then
     { family = "Hack Nerd Font", weight = "Regular", stretch = "Normal", style = "Normal" },
     "PingFang SC",
   })
+  config.font_size = 14
 elseif wezterm.target_triple:find("linux%-gnu") ~= nil then
   -- NOTE: not tested
   config.window_decorations = "RESIZE"
+  config.font_size = 21
 end
-
-config.keys = {
-  { key = "Enter", mods = "SHIFT", action = wezterm.action.SendString("\n") },
-}
 
 wezterm.on("gui-startup", function(cmd)
   local _, _, window = wezterm.mux.spawn_window(cmd or {})
